@@ -3,8 +3,7 @@ import api from './api';
 
 export default {
     uinfo() {
-        return JSON.parse(localStorage.getItem('uinfo_pet'));
-        
+        return JSON.parse(localStorage.getItem('uinfo_pet'));  
     },
 
     signIn(item) {

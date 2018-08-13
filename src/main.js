@@ -19,7 +19,6 @@ import UserOrder from "./page/UserOrder"
 import Setting from "./page/setting/Base"
 
 
-import AdminSignIn from "./page/AdminSignIn"
 import AdminBase from "./page/admin/Base"
 import User from "./page/admin/User"
 import Pet from "./page/admin/Pet"
@@ -112,17 +111,10 @@ const RouterConfig = {
           path: 'order',
           component: Order,
           meta: {
-            title: '设置'
+            title: '订单管理'
           }
         },
       ]
-    },
-    {
-      path: '/adminSignIn',
-      component: AdminSignIn,
-      meta: {
-        title: '管理员登入'
-      }
     },
     {
       path: '/admin',
@@ -170,17 +162,16 @@ const RouterConfig = {
 const router = new VueRouter(
   RouterConfig
 );
-
 router.beforeEach((to, from, next) => {
   let goAdmin = to.fullPath.startsWith('/admin/');
-  let goOrder = to.fullPath.startsWith('/order');
+  let goUserOrder = to.fullPath.startsWith('/userOrder');
   let goSetting = to.fullPath.startsWith('/setting');
   let modalList = signInRoot.modalList();
-  if (goAdmin && !session.signUped()) {
-    alert('请先登入');
-    next('/adminSignIn')
+  if (goAdmin && !session.isAdmin()) {
+    alert('请使用管理也账号登入');
+    next('/adminSignIn');
   } else next();
-  if ((goOrder || goSetting) && !session.signUped()) {
+  if ((goUserOrder || goSetting) && !session.signUped()) {
     alert('请先登入');
     modalList.modal = true;
     modalList.signIn = true;
