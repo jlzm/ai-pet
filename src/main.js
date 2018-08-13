@@ -19,6 +19,7 @@ import UserOrder from "./page/UserOrder"
 import Setting from "./page/setting/Base"
 
 
+import AdminSignIn from "./page/AdminSignIn"
 import AdminBase from "./page/admin/Base"
 import User from "./page/admin/User"
 import Pet from "./page/admin/Pet"
@@ -117,6 +118,13 @@ const RouterConfig = {
       ]
     },
     {
+      path: '/adminSignIn',
+      component: AdminSignIn,
+      meta: {
+        title: '管理员登入'
+      }
+    },
+    {
       path: '/admin',
       component: AdminBase,
       children: [{
@@ -168,8 +176,11 @@ router.beforeEach((to, from, next) => {
   let goOrder = to.fullPath.startsWith('/order');
   let goSetting = to.fullPath.startsWith('/setting');
   let modalList = signInRoot.modalList();
-
-  if ((goAdmin || goOrder || goSetting) && !session.signUped()) {
+  if (goAdmin && !session.signUped()) {
+    alert('请先登入');
+    next('/adminSignIn')
+  } else next();
+  if ((goOrder || goSetting) && !session.signUped()) {
     alert('请先登入');
     modalList.modal = true;
     modalList.signIn = true;
