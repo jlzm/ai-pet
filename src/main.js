@@ -165,16 +165,19 @@ const router = new VueRouter(
 
 router.beforeEach((to, from, next) => {
   let goAdmin = to.fullPath.startsWith('/admin/');
+  let goOrder = to.fullPath.startsWith('/order');
+  let goSetting = to.fullPath.startsWith('/setting');
   let modalList = signInRoot.modalList();
 
-  if (goAdmin && !session.signUped()) {
+  if ((goAdmin || goOrder || goSetting) && !session.signUped()) {
     alert('请先登入');
     modalList.modal = true;
     modalList.signIn = true;
     modalList.signUp = false;
     next(false);
     return
-  } else next()
+  } else next();
+
   document.title = to.meta.title;
 });
 
