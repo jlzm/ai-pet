@@ -19,6 +19,7 @@ import UserOrder from "./page/UserOrder"
 import Setting from "./page/setting/Base"
 
 
+import AdminSignIn from "./page/AdminSignIn"
 import AdminBase from "./page/admin/Base"
 import User from "./page/admin/User"
 import Pet from "./page/admin/Pet"
@@ -117,6 +118,13 @@ const RouterConfig = {
       ]
     },
     {
+      path: '/adminSignIn',
+      component: AdminSignIn,
+      meta: {
+        title: '管理员登入页'
+      }
+    },
+    {
       path: '/admin',
       component: AdminBase,
       children: [{
@@ -166,18 +174,20 @@ router.beforeEach((to, from, next) => {
   let goAdmin = to.fullPath.startsWith('/admin/');
   let goUserOrder = to.fullPath.startsWith('/userOrder');
   let goSetting = to.fullPath.startsWith('/setting');
+
   let modalList = signInRoot.modalList();
+
   if (goAdmin && !session.isAdmin()) {
     alert('请使用管理也账号登入');
     next('/adminSignIn');
-  } else next();
+  } 
+
   if ((goUserOrder || goSetting) && !session.signUped()) {
-    alert('请先登入');
+    // alert('请先登入');
     modalList.modal = true;
     modalList.signIn = true;
     modalList.signUp = false;
     next(false);
-    return
   } else next();
 
   document.title = to.meta.title;
