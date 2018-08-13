@@ -11,7 +11,7 @@
 
 <template>
     <div>
-        <Header defName="admin"/>
+        <AdminHeader defName="admin"/>
         <div class="admin-main">
             <div class="admin-container row">
                 <div class="col-lg-1 sidebar">
@@ -28,12 +28,12 @@
 <script>
 import "../../css/admin.css"
 import api from "../../lib/api.js"
-import Header from "../../components/Header"
+import AdminHeader from "../../components/AdminHeader"
 import AdminSidebar from "../../components/AdminSidebar"
 export default {
     components: {
+        AdminHeader,
         AdminSidebar,
-        Header
     }
 };
 </script>

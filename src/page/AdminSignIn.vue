@@ -28,23 +28,23 @@
 <template>
     <div class="admin-mian">
         <div class="admin-signIn">
-            <form action="" class="signIn-form">
+            <form @submit.prevent="submitSginIn()" action="" class="signIn-form">
                 <div class="title tac">
                     <h2>管理员登入</h2>
                 </div>
                 <div class="input-group">
                     <label for="" class="col-lg-12">账号</label>
-                    <input type="text" class="col-lg-12" v-model="current.unique">
+                    <input type="text" class="col-lg-12" v-model="current.$unique" placeholder="admin">
                 </div>
                 <div class="input-group">
                     <label for="" class="col-lg-12">密码</label>
-                    <input type="password" class="col-lg-12" v-model="current.password">
+                    <input type="password" class="col-lg-12" v-model="current.password" placeholder="123456">
                 </div>
                 <div class="btn-group">
                     <button class="col-lg-12">登入</button>
                 </div>
                 <div class="btn-group">
-                    <button class="col-lg-12">取消</button>
+                    <button @click="cancelSginIn()" type="button" class="col-lg-12">取消</button>
                 </div>
             </form>
         </div>
@@ -59,22 +59,56 @@ export default {
     data() {
         return {
             admin: {},
-            current: {}
+            current: {},
+            uinfo: session.uinfo("uinfo_pet_admin")
         };
     },
-    submitSginIn() {
-        let unique, password;
+    mounted() {
+        // 登入状态
+        session.uinfo("uinfo_pet_admin");
+    },
+    methods: {
+        // 取消登入
+        cancelSginIn() {
+            this.$router.push('/adminSignIn');
+        },
+        //用户登入
+        submitSginIn() {
+            let unique, password;
 
-        if (
-            !(unique = this.current.$unique) ||
-            !(password = this.current.password)
-        ) {
-            this.signFailed = "账号密码不能为空";
-            alert("账号或密码不能为空");
-            return;
+            if (
+                !(unique = this.current.$unique) ||
+                !(password = this.current.password)
+            ) {
+                this.signFailed = "账号密码不能为空";
+                alert("账号或密码不能为空");
+                return;
+            }
+
+            api
+                .api("admin/read", {
+                    where: {
+                        or: [["username", "=", unique], ["phone", "=", unique]]
+                    }
+                })
+                .then(res => {
+                    let item;
+                    // console.log("res.data:", res.data);
+
+                    if (!res.data || !(item = res.data[0]) || item.password != password) {
+                        this.signFailed = "账号密码错误";
+                        alert("账号密码错误");
+                        return;
+                    }
+
+                    this.signFailed = false;
+                    delete item.password;
+
+                    session.signIn(item, "uinfo_pet_admin");
+                    this.uinfo = session.uinfo("uinfo_pet_admin");
+                    this.$router.push("/admin");
+                });
         }
-
-        // api.api('admin/read')
     }
 };
 </script>

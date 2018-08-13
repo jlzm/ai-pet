@@ -2,24 +2,28 @@ import api from './api';
 
 
 export default {
-    uinfo() {
-        return JSON.parse(localStorage.getItem('uinfo_pet'));  
+    uinfo(role) {
+        role = role || 'uinfo_pet';
+        return JSON.parse(localStorage.getItem(role));  
     },
 
-    signIn(item) {
-        this.replaceUnifo(item);
+    signIn(item, role) {
+        this.replaceUnifo(item, role);
         // location.href = url || '/';
     },
 
-    replaceUnifo(item) {
+    replaceUnifo(item, role) {
+        role = role || 'uinfo_pet';
         delete item.password;
-        localStorage.setItem('uinfo_pet', JSON.stringify(item));
-        this.uinfo();
+        localStorage.setItem(role, JSON.stringify(item));
+        this.uinfo(role);
     },
 
-    signOut(url) {
-        localStorage.removeItem('uinfo_pet');
-        location.href = url || '/';
+
+    signOut(role) {
+        role = role || 'uinfo_pet';
+        localStorage.removeItem(role);
+
     },
 
     isAdmin() {
@@ -27,12 +31,12 @@ export default {
         return info && this.uinfo().isAdmin;
     },
 
-    signUped() {
-        return !!this.hisId();
+    signUped(role) {
+        return !!this.hisId(role);
     },
 
-    hisId() {
-        let info = this.uinfo();
-        return info && this.uinfo().id;
+    hisId(role) {
+        let info = this.uinfo(role);
+        return info && this.uinfo(role).id;
     }
 }

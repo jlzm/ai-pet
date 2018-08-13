@@ -1,20 +1,20 @@
 <style scoped>
 .setting-wrap li {
     padding-left: 20px;
-    display: block; 
+    display: block;
 }
 </style>
 
 <template>
     <div>
         <div class="setting-wrap">
-            <h3 @click="userMenu=!userMenu" class="setting" :class="{'active': userMenu}">用户管理</h3>
+            <h3 @click="userMenu=!userMenu" class="setting" :class="{'active': userMenu}">账号管理</h3>
             <ul v-if="userMenu" class="menu-wrapper">
                 <li>
-                    <router-link to="/admin/user" href="#">用户信息管理</router-link>
+                    <router-link to="/admin/user" href="#">用户信息</router-link>
                 </li>
                 <li>
-                    <a href="#">用户权限</a>
+                    <router-link to="/admin/account" href="#">管理员信息</router-link>
                 </li>
             </ul>
             <h3 @click="petMen=!petMen" class="setting" :class="{'active': petMen}">宠物管理</h3>
@@ -50,6 +50,7 @@ export default {
             petMen: false,
             regionMenu: false
         };
-    }
+    },
+
 };
 </script>

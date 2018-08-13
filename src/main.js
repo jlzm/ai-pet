@@ -26,6 +26,9 @@ import Pet from "./page/admin/Pet"
 import Order from "./page/admin/Order"
 import Category from "./page/admin/Category"
 import Breed from "./page/admin/Breed"
+import Account from "./page/admin/Account"
+
+
 import focus from "./directive/focus"
 import signInRoot from './hub/signInRoot'
 
@@ -127,6 +130,9 @@ const RouterConfig = {
     {
       path: '/admin',
       component: AdminBase,
+      meta: {
+        title: '管理页'
+      },
       children: [{
           path: 'user',
           component: User,
@@ -162,6 +168,13 @@ const RouterConfig = {
             title: '管理页-宠物品种'
           }
         },
+        {
+          path: 'account',
+          component: Account,
+          meta: {
+            title: '管理页账户'
+          }
+        },
       ]
     },
   ]
@@ -177,10 +190,10 @@ router.beforeEach((to, from, next) => {
 
   let modalList = signInRoot.modalList();
 
-  if (goAdmin && !session.isAdmin()) {
-    alert('请使用管理也账号登入');
+  if (goAdmin && !session.signUped('uinfo_pet_admin')) {
+    alert('请使用管理员账号登入');
     next('/adminSignIn');
-  } 
+  }
 
   if ((goUserOrder || goSetting) && !session.signUped()) {
     // alert('请先登入');

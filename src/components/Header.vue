@@ -173,6 +173,7 @@
                                 <i class="fa fa-cog" aria-hidden="true"></i>
                             </router-link>
                         </li>
+                        <!-- 退出登入 -->
                         <li>
                             <a @click="signOut()" href="#">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -397,7 +398,10 @@ export default {
         signUped: session.signUped,
 
         //用户登出
-        signOut: session.signOut,
+        signOut() {
+            session.signOut();
+            location.href =  '/';
+        },
 
         // 注册弹出框显示
         showSginIn() {
