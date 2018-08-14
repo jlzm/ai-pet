@@ -14,24 +14,6 @@
 <template>
     <div>
         <div class="content">
-            <div class="title-area">
-                <h2>用户信息管理</h2>
-            </div>
-            <div class="add-info">
-                <button>添加用户信息</button>
-            </div>
-            <div class="info-wrap">
-                <form @submit.prevent="createInfo()">
-                    <div>
-                        <label for="">类别</label>
-                        <input type="text" v-model="current.name">
-                    </div>
-                    <div>
-                       <DropDown api="category.name" :onSelect="setCategorylId" defaultSelect="宠物品种"/>
-                    </div>
-                    <button type="submit">确认添加</button>
-                </form>
-            </div>
             <div class="user-list taf">
                 <div>订单号:</div>
                 <table>

@@ -358,22 +358,22 @@ export default {
                         alert("账号或密码错误");
                         return;
                     }
-
+                    
                     this.signFailed = false;
-                    delete item.password;
 
                     session.signIn(item);
-
+                    alert('登入成功！');
                     this.hiddenModal();
+                    session.uinfo();
                     this.uinfo = session.uinfo();
                 });
         },
         //用户注册
         submitSginUp() {
-            if (this.current.phoneCode != this.phoneCode) {
-                alert("验证码错误");
-                return;
-            }
+            // if (this.current.phoneCode != this.phoneCode) {
+            //     alert("验证码错误");
+            //     return;
+            // }
             if (this.current.password != this.current.confirmPassward) {
                 alert("密码不一致");
                 return;
@@ -389,13 +389,15 @@ export default {
                 this.$set(this.current, "username", this.current[this.typeBox]);
 
             api.api("user/create", this.current).then(res => {
+                let item;
+                item = res.data;
+                session.signIn(item)
+                alert('注册成功！');
                 this.hiddenModal();
-                this.signUped();
+                session.uinfo();
+                this.uinfo = session.uinfo();
             });
         },
-
-        //用户注册后
-        signUped: session.signUped,
 
         //用户登出
         signOut() {

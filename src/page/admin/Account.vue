@@ -1,56 +1,66 @@
-<style>
+<style scoped>
 .user-list table {
     width: 100%;
-}
+}y
 
 .user-list table th,
 .user-list table td {
     padding: 10px;
     border: 1px solid #000;
 }
+
 </style>
 
 <template>
     <div>
         <div class="content">
             <div class="title-area">
-                <h2>用户信息管理</h2>
+                <h2>管理员账户管理</h2>
             </div>
             <div class="add-info">
-                <button>添加用户信息</button>
+                <button @click="modal = true">添加管理员</button>
             </div>
-            <div class="info-wrap">
-                <form @submit.prevent="createInfo()">
-                    <div>
-                        <label for="">用户名</label>
-                        <input type="text" v-model="current.username">
+            <div v-if="modal" @click.self="hiddenModal()" class="modal-wrap">
+                <div class="modal-content info-wrap">
+                    <div class="modal-header tar">
+                        <span @click="hiddenModal()" class="cancel cp">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div>
-                        <label for="">邮箱</label>
-                        <input type="text" v-model="current.email">
-                    </div>
-                    <div>
-                        <label for="">电话</label>
-                        <input type="text" v-model="current.phone">
-                    </div>
-                    <div>
-                        <label for="">密码</label>
-                        <input type="text" v-model="current.password">
-                    </div>
-                    <div>
-                        <label for="">权限等级</label>
-                        <input type="number">
-                    </div>
-                    <button type="submit">确认添加</button>
-                </form>
+                    <form @submit.prevent="createInfo()">
+                        <div class="col-lg-12 input-group">
+                            <label for="">描述</label>
+                            <input class="col-lg-12" type="text" v-model="current.description">
+                        </div>
+                        <div class="col-lg-12 input-group">
+                            <label for="">账号</label>
+                            <input class="col-lg-12" type="text" v-model="current.username">
+                        </div>
+                        <div class="col-lg-12 input-group">
+                            <label for="">密码</label>
+                            <input class="col-lg-12" type="text" v-model="current.password">
+                        </div>
+                        <div class="col-lg-12 input-group">
+                            <label for="">权限</label>
+                            <input class="col-lg-12" type="number" v-model="current.permissions">
+                        </div>
+                        <div class="btn-wrap row">
+                            <div class="btn-group col-lg-6">
+                                <button class="col-lg-12" type="submit">确认添加</button>
+                            </div>
+                            <div class="btn-group col-lg-6">
+                                <button @click="hiddenModal()" class="col-lg-12" type="button">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="user-list taf">
                 <table>
                     <thead>
                         <tr>
+                            <th>描述</th>
                             <th>账号</th>
-                            <th>邮箱</th>
-                            <th>电话</th>
                             <th>密码</th>
                             <th>权限</th>
                             <th>编辑</th>
@@ -59,13 +69,10 @@
                     <tbody>
                         <tr v-for="(item, index) in allList.admin" :key="index">
                             <td>
+                                {{item.description}}
+                            </td>
+                            <td>
                                 {{item.username}}
-                            </td>
-                            <td>
-                                {{item.email}}
-                            </td>
-                            <td>
-                                {{item.phone}}
                             </td>
                             <td>
                                 {{item.password}}
@@ -88,15 +95,16 @@
 <script>
 import AdminPage from "../../mixsin/AdminPage";
 export default {
+    mixins: [AdminPage],
     data() {
         return {
-            model: "admin"
+            model: "admin",
         };
     },
-    mixins: [AdminPage],
     mounted() {
         this.readInfo();
     },
-    methods: {}
+    methods: {
+    }
 };
 </script>
