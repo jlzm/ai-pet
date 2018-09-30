@@ -38,7 +38,7 @@
                 </div>
                 <div class="input-group">
                     <label for="" class="col-lg-12">密码</label>
-                    <input type="password" class="col-lg-12" v-model="current.password" placeholder="123456">
+                    <input type="password" class="col-lg-12" v-model="current.password" placeholder="admin123">
                 </div>
                 <div class="btn-group">
                     <button class="col-lg-12">登入</button>
@@ -72,7 +72,7 @@ export default {
         cancelSginIn() {
             this.$router.push('/adminSignIn');
         },
-        //用户登入
+        //管理员登入
         submitSginIn() {
             let unique, password;
 
@@ -88,7 +88,7 @@ export default {
             api
                 .api("admin/read", {
                     where: {
-                        or: [["username", "=", unique], ["phone", "=", unique]]
+                        or: [["username", "=", unique], ["password", "=", password]]
                     }
                 })
                 .then(res => {
@@ -102,10 +102,11 @@ export default {
                     }
 
                     this.signFailed = false;
-                    delete item.password;
 
                     session.signIn(item, "uinfo_pet_admin");
                     this.uinfo = session.uinfo("uinfo_pet_admin");
+                    alert('成功登入');
+                    
                     this.$router.push("/admin");
                 });
         }

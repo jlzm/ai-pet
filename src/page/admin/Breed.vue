@@ -57,6 +57,8 @@
                     </tbody>
                 </table>
             </div>
+            <Pagination :limit="limit" :totalCount="total" :onChange="changPage"/>
+
         </div>
     </div>
 </template>

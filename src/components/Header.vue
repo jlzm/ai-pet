@@ -223,8 +223,10 @@
                     <div class="nav-cart">
                         <p>
                             <router-link to="/cart" href="#">
+
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span>￥0.00</span>
+                                <span>￥{{total.price}}</span>&nbsp
+                                <span>共{{total.count}}件</span>
                             </router-link>
                         </p>
                         <p>
@@ -310,6 +312,8 @@ import api from "../lib/api";
 import GetCode from "../mixsin/GetCode";
 import session from "../lib/session";
 import signInRoot from "../hub/signInRoot";
+import toolCart from "../hub/toolCart";
+
 export default {
     props: {
         defName: {
@@ -322,6 +326,8 @@ export default {
         return {
             modalList: signInRoot.modalList(),
             uinfo: session.uinfo(),
+            // 购物车
+            total: toolCart.cartTotal(),
 
             // 登入验证的错误信息
             signFailed: ""
@@ -353,16 +359,21 @@ export default {
                 })
                 .then(res => {
                     let item;
-                    if (!(item = res.data[0]) || item.password != password) {
-                        this.signFailed = "账号或密码错误";
-                        alert("账号或密码错误");
+                    if (!res.data) {
+                        this.signFailed = "用户名不存在";
+                        alert("用户名不存在");
                         return;
                     }
-                    
+                    if (!(item = res.data[0]) || item.password != password) {
+                        this.signFailed = "用户名或密码错误";
+                        alert("用户名或密码错误");
+                        return;
+                    }
+
                     this.signFailed = false;
 
                     session.signIn(item);
-                    alert('登入成功！');
+                    alert("登入成功！");
                     this.hiddenModal();
                     session.uinfo();
                     this.uinfo = session.uinfo();
@@ -370,10 +381,10 @@ export default {
         },
         //用户注册
         submitSginUp() {
-            // if (this.current.phoneCode != this.phoneCode) {
-            //     alert("验证码错误");
-            //     return;
-            // }
+            if (this.current.phoneCode != this.phoneCode) {
+                alert("验证码错误");
+                return;
+            }
             if (this.current.password != this.current.confirmPassward) {
                 alert("密码不一致");
                 return;
@@ -391,8 +402,8 @@ export default {
             api.api("user/create", this.current).then(res => {
                 let item;
                 item = res.data;
-                session.signIn(item)
-                alert('注册成功！');
+                session.signIn(item);
+                alert("注册成功！");
                 this.hiddenModal();
                 session.uinfo();
                 this.uinfo = session.uinfo();
@@ -402,7 +413,7 @@ export default {
         //用户登出
         signOut() {
             session.signOut();
-            location.href =  '/';
+            location.href = "/";
         },
 
         // 注册弹出框显示

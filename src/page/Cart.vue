@@ -91,11 +91,11 @@
                     </div>
                     <ul class="li-db">
                         <li>
-                            <span>已选商品：{{total.totalCount}}件</span>
+                            <span>已选商品：{{totalComputed.count}}件</span>
                         </li>
                         <li>
                             <span>总价：</span>
-                            <span>￥{{total.totalPrice}}</span>
+                            <span>￥{{totalComputed.price}}</span>
                         </li>
                     </ul>
                     <span class="hvr-btn col-lg-12 tac">结算</span>
@@ -120,30 +120,33 @@ export default {
 
     data() {
         return {
-            list: toolCart.cartlist(),
+            list: toolCart.cartList(),
+            total: toolCart.cartTotal(),
             checkedAll: false
         };
     },
     mounted() {
-
+        console.log('this.total:', this.total);
+        
     },
     computed: {
-        total() {
+        totalComputed() {
             let cartList = this.list.cart;
-            let totalPrice = 0;
-            let totalCount = 0;
-
+            this.total.price = 0;
+            this.total.count = 0;
+            let count = 0;
+            let price = 0;
             for (let id in cartList) {
                 let item = cartList[id];
                 
                 if (!item._checked) {
                     continue;
                 }
-                totalCount++;
-                totalPrice += item.$pet.price * item.count;
+                count = ++this.total.count;
+                price = this.total.price += item.$pet.price * item.count;  
             }
 
-            return { totalCount, totalPrice};
+            return { count, price};
         }
     },
     methods: {

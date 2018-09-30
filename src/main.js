@@ -38,19 +38,6 @@ Vue.use(VueRouter);
 Vue.config.productionTip = false
 
 
-// Vue.filter('only_day', function (value) {
-//   if (!value)
-//     return value;
-
-//   return value.split(' ')[0];
-// });
-
-// Vue.filter('percentage', function (value) {
-//   if (!value)
-//     return 0;
-//   return (value * 100).toFixed(2) + '%';
-// });
-
 const RouterConfig = {
   routes: [{
       path: '/',
@@ -191,7 +178,6 @@ router.beforeEach((to, from, next) => {
   let modalList = signInRoot.modalList();
 
   if (goAdmin && !session.signUped('uinfo_pet_admin')) {
-    alert('请使用管理员账号登入');
     next('/adminSignIn');
   }
 

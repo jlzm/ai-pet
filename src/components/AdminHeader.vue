@@ -176,9 +176,9 @@
                     </ul>
                     <ul v-else>
                         <li>
-                            <a @click="showSginIn()" @keyup.esc="hiddenModal()" href="#">
+                            <span @click="showSginIn()" @keyup.esc="hiddenModal()" href="#">
                                 <i class="fa fa-user-circle" aria-hidden="true"></i>
-                            </a>
+                            </span>
                         </li>
                         <li>
                             <a @click="showSginUp()" @keyup.esc="hiddenModal()" href="#">
