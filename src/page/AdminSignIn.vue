@@ -68,9 +68,9 @@ export default {
         session.uinfo("uinfo_pet_admin");
     },
     methods: {
-        // 取消登入
+        // 取消
         cancelSginIn() {
-            this.$router.push('/adminSignIn');
+            this.$router.push('/');
         },
         //管理员登入
         submitSginIn() {
