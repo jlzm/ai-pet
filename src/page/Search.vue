@@ -127,14 +127,14 @@
                     <ul class="cp-all">
                         <li>默认排序</li>
                         <li @click="toggleSort('price')" :class="{'search-active': searchParam.sort_by && searchParam.sort_by[0] == 'price'}">
-                            <span >价格</span>
-                            <i v-if="searchParam.sort_by && searchParam.sort_by[0] == 'price' &&  searchParam.sort_by[1] == 'up'" class="fa fa-arrow-up" aria-hidden="true"></i>
-                            <i v-else class="fa fa-arrow-down" aria-hidden="true"></i>
+                            <span>价格</span>
+                            <i v-if="searchParam.sort_by && searchParam.sort_by[0] == 'price' &&  searchParam.sort_by[1] == 'down'" class="fa fa-arrow-down" aria-hidden="true"></i>
+                            <i v-else class="fa fa-arrow-up" aria-hidden="true"></i>
                         </li>
                         <li @click="toggleSort('id')" :class="{'search-active': searchParam.sort_by && searchParam.sort_by[0] == 'id'}">
                             <span>上架时间</span>
-                            <i v-if="searchParam.sort_by && searchParam.sort_by[0] == 'id' && searchParam.sort_by[1] == 'up'" class="fa fa-arrow-up" aria-hidden="true"></i>
-                            <i v-else class="fa fa-arrow-down" aria-hidden="true"></i>
+                            <i v-if="searchParam.sort_by && searchParam.sort_by[0] == 'id' && searchParam.sort_by[1] == 'down'" class="fa fa-arrow-down" aria-hidden="true"></i>
+                            <i v-else class="fa fa-arrow-up" aria-hidden="true"></i>
                         </li>
                     </ul>
                 </div>

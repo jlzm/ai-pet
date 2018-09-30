@@ -43,42 +43,42 @@ const RouterConfig = {
       path: '/',
       component: Home,
       meta: {
-        title: '首页'
+        title: 'pet-首页'
       }
     },
     {
       path: '/search/:category',
       component: Search,
       meta: {
-        title: '搜索页'
+        title: 'pet-搜索页'
       }
     },
     {
       path: '/detail/:id',
       component: Detail,
       meta: {
-        title: '详情页'
+        title: 'pet-详情页'
       }
     },
     {
       path: '/cart',
       component: Cart,
       meta: {
-        title: '我的购物车'
+        title: 'pet-我的购物车'
       }
     },
     {
       path: '/userOrder',
       component: UserOrder,
       meta: {
-        title: '我的订单'
+        title: 'pet-我的订单'
       }
     },
     {
       path: '/setting',
       component: Setting,
       meta: {
-        title: '设置'
+        title: 'pet-设置'
       }
     },
     {
@@ -88,21 +88,21 @@ const RouterConfig = {
           path: 'user',
           component: User,
           meta: {
-            title: '设置'
+            title: 'pet-设置'
           }
         },
         {
           path: 'pet',
           component: Pet,
           meta: {
-            title: '设置'
+            title: 'pet-设置'
           }
         },
         {
           path: 'order',
           component: Order,
           meta: {
-            title: '订单管理'
+            title: 'pet-订单管理'
           }
         },
       ]
@@ -111,55 +111,55 @@ const RouterConfig = {
       path: '/adminSignIn',
       component: AdminSignIn,
       meta: {
-        title: '管理员登入页'
+        title: 'pet-管理员登入页'
       }
     },
     {
       path: '/admin',
       component: AdminBase,
       meta: {
-        title: '管理页'
+        title: 'pet-管理页'
       },
       children: [{
           path: 'user',
           component: User,
           meta: {
-            title: '管理页'
+            title: 'pet-管理页'
           }
         },
         {
           path: 'pet',
           component: Pet,
           meta: {
-            title: '管理页-宠物信息'
+            title: 'pet-管理页-宠物信息'
           }
         },
         {
           path: 'order',
           component: Order,
           meta: {
-            title: '管理页-用户订单'
+            title: 'pet-管理页-用户订单'
           }
         },
         {
           path: 'category',
           component: Category,
           meta: {
-            title: '管理页-宠物分类'
+            title: 'pet-管理页-宠物分类'
           }
         },
         {
           path: 'breed',
           component: Breed,
           meta: {
-            title: '管理页-宠物品种'
+            title: 'pet-管理页-宠物品种'
           }
         },
         {
           path: 'account',
           component: Account,
           meta: {
-            title: '管理页账户'
+            title: 'pet-管理页账户'
           }
         },
       ]
